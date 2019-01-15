@@ -5,12 +5,31 @@
     var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     // Number of hours the stores are open each day
         // var operatingHrsDay = 14; // Think I'll actually need to loop through open hrs per biz reqs
+    // Create array of open hours that I can loop through
+    var openHrs = [
+        '6am',
+        '7am',
+        '8am',
+        '9am',
+        '10am',
+        '11am',
+        '12pm',
+        '1pm',
+        '2pm',
+        '3pm',
+        '4pm',
+        '5pm',
+        '6pm',
+        '7pm',
+        '8pm'
+    ];
+    
     // Create variables to use for accessing elements by ID
-        var firstAndPikeUl = document.getElementById('firstandpike');
-        var seatacUl = document.getElementById('seatac');
-        var seattleCtrUl = document.getElementById('seattlectr');
-        var capHillUl = document.getElementById('caphill');
-        var alkiUl = document.getElementById('alki');
+    var firstAndPikeUl = document.getElementById('firstandpike');
+    var seatacUl = document.getElementById('seatac');
+    var seattleCtrUl = document.getElementById('seattlectr');
+    var capHillUl = document.getElementById('caphill');
+    var alkiUl = document.getElementById('alki');
 
 // Create functions that can be reused in method inside each object?
     // Generate number btwn two values (learned from MDN doc on Math.random())
@@ -19,8 +38,11 @@
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min; // The max is exclus and the min is inclus
     }
-    // Calc and store no. of cookies bought per hour based on rand num of customers and avg no. of cookies/hr sold at a given location
-
+    // Calc and store no. of cookies bought per hour based on rand num of customers and avg no. of cookies/hr sold at a given location; include variable that stores total no. to print below list of cookies/hr sold
+    
+    // Get total number of cookies to incl at end of list?? 
+    // function getTotalCooks() { // Gotta be same as wk 1 lab 5 stretch goal (problem 6)?
+    // }
 
 // Create separate JS object literal for each shop location
     // Location #1
