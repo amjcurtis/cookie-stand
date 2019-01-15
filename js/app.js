@@ -39,11 +39,6 @@ function cookiesSoldPerHr(custs, cookies) { // 1st param is rand no. of customer
     return cookiesPerHr;
 }
 
-// Sum array of numbers (learned from W3School docs)
-function getSum(total, num) { // Best to make this global function or make it local inside object method?
-    return total + num;
-}
-
 // Location #1
 var firstAndPike = {
     location: '1st and Pike',
@@ -51,44 +46,29 @@ var firstAndPike = {
     maxCust: 65,
     avgNumCookiesSale: 6.3,
     hourlySales: [], // Num of cookies sold per hour
-    //totalCookies: sumTotal, // Will this work when the variable that's used as value of the prprty is decl'd inside the render method?
+    totalCooks: 0, 
     render: function() {
         for (var i = 0; i < openHrs.length; i++) {
             var randCustNum = getRandomInt(this.minCust,this.maxCust);
-            console.log(`Number of customers: ${randCustNum}`);
-            var cookiesHr = cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale);
-            console.log(`Num of custs this hr (${randCustNum}) * avg cookies/cust (${this.avgNumCookiesSale}) = ${cookiesHr} cookies sold this hr`); // # of customers * cookies sold this hour = total cookies sold this hour
+            console.log(`Number of customers this hour: ${randCustNum}`);
+            var cookiesHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale));
             this.hourlySales.push(cookiesHr);
-            // console.log(`Cookies/hr sold for index ${i}: ${this.hourlySales}`);
             
-            // This is a test counter for summing total of cookies sold
-            var totalCooks = 0;
-            totalCooks += this.hourlySales[i];
-            console.log(`Running total of cookies =: ${totalCooks}`)
+            // Counter for summing total of cookies sold
+            this.totalCooks += this.hourlySales[i];
+            console.log(`Running total of cookies: ${this.totalCooks}`)
 
-            // 1. Create element to hold the data
-            var liEl = document.createElement('li');
-            // 2. Assign the data to the element
-            liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`;
-            // 3. Put the element into the DOM
-            firstAndPikeUl.appendChild(liEl);
+            var liEl = document.createElement('li'); // 1. Create element to hold the data
+            liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`; // 2. Assign the data to the element
+            firstAndPikeUl.appendChild(liEl); // 3. Put the element into the DOM
         }
+        console.log(`TOTAL cookies for day: ${this.totalCooks}`)
 
-        // Sum values of hourlySales array
-        var sumTotal = this.hourlySales.reduce(getSum);
-        console.log('Sum total cookies:', this.hourlySales.reduce(getSum));
-        // create variable containing sum total
-        // var sumTotal = // Should be assigned value of total gotten from sum in step above
-        // Create new prpty for obj contining sum for the day
-
-        console.log(`Total cookies =: ${totalCooks}`)
-
-        // For counter to generate total no. of cookies sold per day
-        var liElForTotal = document.createElement('li');
-        liElForTotal.textContent = `Total: ${this.totalCookies} cookies`; // Or 
-        firstAndPikeUl.appendChild(liElForTotal);    
-    },
-    // sumTotal: this.hourlySales.reduce(getSum)
+        // Generate HTML list items for total no. of cookies sold per day and add to DOM
+        var liElForTotal = document.createElement('li'); // 1. Create element to hold the data
+        liElForTotal.textContent = `Total: ${this.totalCooks} cookies`; // 2. Assign the data to the element
+        firstAndPikeUl.appendChild(liElForTotal); // 3. Put the element into the DOM
+    }
 
     // ######################################################################################
     // Below is legacy code from my first attempt to 1) generate random num of customers 
@@ -112,31 +92,27 @@ var seaTac = {
     maxCust: 24,
     avgNumCookiesSale: 1.2,
     hourlySales: [], // Num of cookies sold per hour
-    //totalCookies: sumTotal,
+    totalCooks: 0, 
     render: function() {
         for (var i = 0; i < openHrs.length; i++) {
-            var randCustNum = getRandomInt(this.minCust,this.maxCust); 
-            console.log(`Number of customers: ${randCustNum}`);
-            var cookiesHr = cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale); 
-            console.log(`Num of custs this hr (${randCustNum}) * avg cookies/cust (${this.avgNumCookiesSale}) = ${cookiesHr} cookies sold this hr`); // # of customers * cookies sold this hour = total cookies sold this hour
+            var randCustNum = getRandomInt(this.minCust,this.maxCust);
+            console.log(`Number of customers this hour: ${randCustNum}`);
+            var cookiesHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale));
             this.hourlySales.push(cookiesHr);
-            // console.log(`Cookies/hr sold for index ${i}: ${this.hourlySales}`);
+            
+            // Counter for summing total of cookies sold
+            this.totalCooks += this.hourlySales[i];
+            console.log(`Running total of cookies: ${this.totalCooks}`)
 
             var liEl = document.createElement('li');
             liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`;
             seatacUl.appendChild(liEl);
         }
+        console.log(`TOTAL cookies for day: ${this.totalCooks}`)
 
-        // Sum values of hourlySales array
-        var sumTotal = this.hourlySales.reduce(getSum);
-        console.log('Value of sum total:', this.hourlySales.reduce(getSum));
-        // create variable containing sum total
-        // var sumTotal = // Should be assigned value of total gotten from sum in step above
-        // Create new prpty for obj contining sum for the day
-
-        // For counter to generate total no. of cookies sold per day
+        // Generate HTML list items for total no. of cookies sold per day and add to DOM
         var liElForTotal = document.createElement('li');
-        liElForTotal.textContent = `Total: ${this.totalCookies} cookies`;
+        liElForTotal.textContent = `Total: ${this.totalCooks} cookies`;
         seatacUl.appendChild(liElForTotal);    
     }
 }
@@ -148,38 +124,27 @@ var seattleCtr = {
     maxCust: 38,
     avgNumCookiesSale: 3.7,
     hourlySales: [], // Num of cookies sold per hour
-    //totalCookies: sumTotal,
+    totalCooks: 0, 
     render: function() {
         for (var i = 0; i < openHrs.length; i++) {
-            var randCustNum = getRandomInt(this.minCust,this.maxCust); 
-            console.log(`Number of customers: ${randCustNum}`);
-            var cookiesHr = cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale); 
-            console.log(`Num of custs this hr (${randCustNum}) * avg cookies/cust (${this.avgNumCookiesSale}) = ${cookiesHr} cookies sold this hr`); // # of customers * cookies sold this hour = total cookies sold this hour
+            var randCustNum = getRandomInt(this.minCust,this.maxCust);
+            console.log(`Number of customers this hour: ${randCustNum}`);
+            var cookiesHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale));
             this.hourlySales.push(cookiesHr);
-            // console.log(`Cookies/hr sold for index ${i}: ${this.hourlySales}`);
+            
+            // Counter for summing total of cookies sold
+            this.totalCooks += this.hourlySales[i];
+            console.log(`Running total of cookies: ${this.totalCooks}`)
 
-            // 1. Create element to hold the data
             var liEl = document.createElement('li');
-            // 2. Assign the data to the element
             liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`;
-            // console.log('just assigned a value liEl', liEl);
-            // 3. Put the element into the DOM
             seattleCtrUl.appendChild(liEl);
         }
+        console.log(`TOTAL cookies for day: ${this.totalCooks}`)
 
-        // Sum values of hourlySales array
-        var sumTotal = this.hourlySales.reduce(getSum);
-        console.log('Value of sum total:', this.hourlySales.reduce(getSum));
-        // create variable containing sum total
-        // var sumTotal = // Should be assigned value of total gotten from sum in step above
-        // Create new prpty for obj contining sum for the day
-
-        // For counter to generate total no. of cookies sold per day
-        // 1. Create element to hold the data
+        // Generate HTML list items for total no. of cookies sold per day and add to DOM
         var liElForTotal = document.createElement('li');
-        // 2. Assign the data to the element
-        liElForTotal.textContent = `Total: ${this.totalCookies} cookies`;
-        // 3. Put the element into the DOM
+        liElForTotal.textContent = `Total: ${this.totalCooks} cookies`;
         seattleCtrUl.appendChild(liElForTotal);    
     }
 }
@@ -191,38 +156,27 @@ var capitolHill = {
     maxCust: 38,
     avgNumCookiesSale: 2.3,
     hourlySales: [], // Num of cookies sold per hour
-    //totalCookies: sumTotal,
+    totalCooks: 0, 
     render: function() {
         for (var i = 0; i < openHrs.length; i++) {
-            var randCustNum = getRandomInt(this.minCust,this.maxCust); 
-            console.log(`Number of customers: ${randCustNum}`);
-            var cookiesHr = cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale); 
-            console.log(`Num of custs this hr (${randCustNum}) * avg cookies/cust (${this.avgNumCookiesSale}) = ${cookiesHr} cookies sold this hr`); // # of customers * cookies sold this hour = total cookies sold this hour
+            var randCustNum = getRandomInt(this.minCust,this.maxCust);
+            console.log(`Number of customers this hour: ${randCustNum}`);
+            var cookiesHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale));
             this.hourlySales.push(cookiesHr);
-            // console.log(`Cookies/hr sold for index ${i}: ${this.hourlySales}`);
+            
+            // Counter for summing total of cookies sold
+            this.totalCooks += this.hourlySales[i];
+            console.log(`Running total of cookies: ${this.totalCooks}`)
 
-            // 1. Create element to hold the data
             var liEl = document.createElement('li');
-            // 2. Assign the data to the element
             liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`;
-            // console.log('just assigned a value liEl', liEl);
-            // 3. Put the element into the DOM
             capHillUl.appendChild(liEl);
         }
+        console.log(`TOTAL cookies for day: ${this.totalCooks}`)
 
-        // Sum values of hourlySales array
-        var sumTotal = this.hourlySales.reduce(getSum);
-        console.log('Value of sum total:', this.hourlySales.reduce(getSum));
-        // create variable containing sum total
-        // var sumTotal = // Should be assigned value of total gotten from sum in step above
-        // Create new prpty for obj contining sum for the day
-
-        // For counter to generate total no. of cookies sold per day
-        // 1. Create element to hold the data
+        // Generate HTML list items for total no. of cookies sold per day and add to DOM
         var liElForTotal = document.createElement('li');
-        // 2. Assign the data to the element
-        liElForTotal.textContent = `Total: ${this.totalCookies} cookies`;
-        // 3. Put the element into the DOM
+        liElForTotal.textContent = `Total: ${this.totalCooks} cookies`;
         capHillUl.appendChild(liElForTotal);    
     }
 }
@@ -234,38 +188,27 @@ var alki = {
     maxCust: 16,
     avgNumCookiesSale: 4.6,
     hourlySales: [], // Num of cookies sold per hour
-    //totalCookies: sumTotal, 
+    totalCooks: 0, 
     render: function() {
         for (var i = 0; i < openHrs.length; i++) {
-            var randCustNum = getRandomInt(this.minCust,this.maxCust); 
-            console.log(`Number of customers: ${randCustNum}`);
-            var cookiesHr = cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale); 
-            console.log(`Num of custs this hr (${randCustNum}) * avg cookies/cust (${this.avgNumCookiesSale}) = ${cookiesHr} cookies sold this hr`); // # of customers * cookies sold this hour = total cookies sold this hour
+            var randCustNum = getRandomInt(this.minCust,this.maxCust);
+            console.log(`Number of customers this hour: ${randCustNum}`);
+            var cookiesHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale));
             this.hourlySales.push(cookiesHr);
-            // console.log(`Cookies/hr sold for index ${i}: ${this.hourlySales}`);
+            
+            // Counter for summing total of cookies sold
+            this.totalCooks += this.hourlySales[i];
+            console.log(`Running total of cookies: ${this.totalCooks}`)
 
-            // 1. Create element to hold the data
             var liEl = document.createElement('li');
-            // 2. Assign the data to the element
             liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`;
-            // console.log('just assigned a value liEl', liEl);
-            // 3. Put the element into the DOM
             alkiUl.appendChild(liEl);
         }
+        console.log(`TOTAL cookies for day: ${this.totalCooks}`)
 
-        // Sum values of hourlySales array
-        var sumTotal = this.hourlySales.reduce(getSum);
-        console.log('Value of sum total:', this.hourlySales.reduce(getSum));
-        // create variable containing sum total
-        // var sumTotal = // Should be assigned value of total gotten from sum in step above
-        // Create new prpty for obj contining sum for the day
-
-        // For counter to generate total no. of cookies sold per day
-        // 1. Create element to hold the data
+        // Generate HTML list items for total no. of cookies sold per day and add to DOM
         var liElForTotal = document.createElement('li');
-        // 2. Assign the data to the element
-        liElForTotal.textContent = `Total: ${this.totalCookies} cookies`;
-        // 3. Put the element into the DOM
+        liElForTotal.textContent = `Total: ${this.totalCooks} cookies`;
         alkiUl.appendChild(liElForTotal);    
     }
 }
