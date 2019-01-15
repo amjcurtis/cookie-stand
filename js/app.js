@@ -52,6 +52,10 @@ function cookiesSoldPerHr(custs, cookies) { // 1st param is rand no. of customer
     return cookiesPerHr;
 }
 
+function getSum(total, num) { // Best to make this global function or make it local inside object method?
+    return total + num;
+}
+
 // Location #1
 var firstAndPike = {
     location: '1st and Pike',
@@ -59,6 +63,7 @@ var firstAndPike = {
     maxCust: 65,
     avgNumCookiesSale: 6.3,
     hourlySales: [],
+    // totalCookies: sumTotal, // Will this work when the variable that's used as value of the prprty is decl'd inside the render method?
     render: function() {
         // var totalCookies = 0; // Or should this be global so can use later for totalling cookies sold per day? 
         // var numCookies = []; // Or try empty array approach Madi and I talked about?
@@ -66,23 +71,24 @@ var firstAndPike = {
             var randCustNum = getRandomInt(this.minCust,this.maxCust); // Should be inside or outside for loop?
             console.log(`Number of customers: ${randCustNum}`);
             var cookiesHr = cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale); // Should be inside or outside for loop?
-            console.log(`${randCustNum} * ${this.avgNumCookiesSale}`); // # of customers * cookies sold
-            console.log(`Cookies sold per hour: ${cookiesHr}`);
+            console.log(`Number of custs this hour (${randCustNum}) * avg cookies/cust (${this.avgNumCookiesSale}) = ${cookiesHr} cookies sold this hour`); // # of customers * cookies sold
             this.hourlySales.push(cookiesHr);
-            console.log(`Cookies/hr sold for index ${i}: ${this.hourlySales}`);
+            // console.log(`Cookies/hr sold for index ${i}: ${this.hourlySales}`);
 
             // 1. Create element to hold the data
             var liEl = document.createElement('li');
             // 2. Assign the data to the element
             liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`;
-            console.log('just assigned a value liEl', liEl);
+            // console.log('just assigned a value liEl', liEl);
             // 3. Put the element into the DOM
             firstAndPikeUl.appendChild(liEl);
         }
 
         // Sum values of hourlySales array
-        
+        var sumTotal = this.hourlySales.reduce(getSum);
+        console.log('Value of sum total', this.hourlySales.reduce(getSum));
         // create variable containing sum total
+        // var sumTotal = // Should be assigned value of total gotten from sum in step above
         // Create new prpty for obj contining sum for the day
 
         // For counter to generate total no. of cookies sold per day
@@ -95,6 +101,7 @@ var firstAndPike = {
     
         // Google how to sum an array of numbers
     },
+    // sumTotal: this.hourlySales.reduce(getSum)
 
     // Probably should find way to create a single 'render' method that incorporates the two separate methods below and makes it unnecessary to create them as separate indiv methods in the object
     // getRandCusts: function() { // Generate random number of custs/hr
@@ -113,3 +120,4 @@ var firstAndPike = {
 
 // Call functions
 firstAndPike.render();
+// console.log('Value of sum total', first.hourlySales.reduce(getSum));
