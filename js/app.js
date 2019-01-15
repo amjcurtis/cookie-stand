@@ -39,6 +39,68 @@ function cookiesSoldPerHr(custs, cookies) { // 1st param is rand no. of customer
     return cookiesPerHr;
 }
 
+
+var allCookieStands = [];
+
+function CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale) {
+    this.locationName = locationName;
+    this.minCustomers = minCustomers;
+    this.maxCustomers = maxCustomers;
+    this.avgCookiesEachSale = avgCookiesEachSale;
+    this.cookiesSoldEachHour = [];
+    this.totalCookiesSold = 0;
+    allCookieStands.push(this);
+}
+
+CookieStand.prototype.render = function() {
+    for (var i = 0; i < openHrs.length; i++) {
+        var randCustNum = getRandomInt(this.minCust,this.maxCust);
+        console.log(`Number of customers this hour: ${randCustNum}`);
+        var cookiesHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale));
+        this.hourlySales.push(cookiesHr);
+        
+        // Counter for summing total of cookies sold
+        this.totalCooks += this.hourlySales[i];
+        console.log(`Running total of cookies: ${this.totalCooks}`)
+
+        var liEl = document.createElement('li'); // 1. Create element to hold the data
+        liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`; // 2. Assign the data to the element
+        firstAndPikeUl.appendChild(liEl); // 3. Put the element into the DOM
+    }
+    console.log(`TOTAL cookies for day: ${this.totalCooks}`)
+
+    // Generate HTML list items for total no. of cookies sold per day and add to DOM
+    var liElForTotal = document.createElement('li'); // 1. Create element to hold the data
+    liElForTotal.textContent = `Total: ${this.totalCooks} cookies`; // 2. Assign the data to the element
+    firstAndPikeUl.appendChild(liElForTotal); // 3. Put the element into the DOM
+    return // Actually need a return stmt??
+};
+
+// Create instances of CookieStand object
+var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3);
+var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2);
+var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7);
+var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3);
+var alkiStand = new CookieStand('Alki', 2, 16, 4.6);
+
+// Call "render" method on instances of CookieStand object
+firstAndPikeStand.render();
+console.log(firstAndPikeStand.render);
+
+seaTacAirportStand.render();
+console.log(seaTacAirportStand.render);
+
+seattleCenterStand.render();
+console.log(seattleCenterStand.render);
+
+capitolHillStand.render();
+console.log(capitolHillStand.render);
+
+alkiStand.render();
+console.log(alkiStand.render);
+
+
+
 // Location #1
 var firstAndPike = {
     location: '1st and Pike',
