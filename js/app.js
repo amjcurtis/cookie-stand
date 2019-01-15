@@ -39,7 +39,7 @@ function cookiesSoldPerHr(custs, cookies) { // 1st param is rand no. of customer
     return cookiesPerHr;
 }
 
-// Sum array of numbers
+// Sum array of numbers (learned from W3School docs)
 function getSum(total, num) { // Best to make this global function or make it local inside object method?
     return total + num;
 }
@@ -60,38 +60,39 @@ var firstAndPike = {
             console.log(`Num of custs this hr (${randCustNum}) * avg cookies/cust (${this.avgNumCookiesSale}) = ${cookiesHr} cookies sold this hr`); // # of customers * cookies sold this hour = total cookies sold this hour
             this.hourlySales.push(cookiesHr);
             // console.log(`Cookies/hr sold for index ${i}: ${this.hourlySales}`);
+            
+            // This is a test counter for summing total of cookies sold
+            var totalCooks = 0;
+            totalCooks += this.hourlySales[i];
+            console.log(`Running total of cookies =: ${totalCooks}`)
 
             // 1. Create element to hold the data
             var liEl = document.createElement('li');
             // 2. Assign the data to the element
             liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`;
-            // console.log('just assigned a value liEl', liEl);
             // 3. Put the element into the DOM
             firstAndPikeUl.appendChild(liEl);
         }
 
         // Sum values of hourlySales array
         var sumTotal = this.hourlySales.reduce(getSum);
-        console.log('Value of sum total:', this.hourlySales.reduce(getSum));
+        console.log('Sum total cookies:', this.hourlySales.reduce(getSum));
         // create variable containing sum total
         // var sumTotal = // Should be assigned value of total gotten from sum in step above
         // Create new prpty for obj contining sum for the day
 
+        console.log(`Total cookies =: ${totalCooks}`)
+
         // For counter to generate total no. of cookies sold per day
-        // 1. Create element to hold the data
         var liElForTotal = document.createElement('li');
-        // 2. Assign the data to the element
-        liElForTotal.textContent = `Total: ${this.totalCookies} cookies`;
-        // 3. Put the element into the DOM
+        liElForTotal.textContent = `Total: ${this.totalCookies} cookies`; // Or 
         firstAndPikeUl.appendChild(liElForTotal);    
     },
     // sumTotal: this.hourlySales.reduce(getSum)
 
     // ######################################################################################
     // Below is legacy code from my first attempt to 1) generate random num of customers 
-    // and 2) calc num of cookies sold per hour. Probably should find way to create a 
-    // single 'render' method that incorporates the two separate methods below and makes it 
-    // unnecessary to create them as separate indiv methods in the object
+    // and 2) calc num of cookies sold per hour. 
     // ######################################################################################
     // getRandCusts: function() { // Generate random number of custs/hr
     //     var randCustNum = getRandomInt(this.minCust,this.maxCust);
@@ -121,12 +122,8 @@ var seaTac = {
             this.hourlySales.push(cookiesHr);
             // console.log(`Cookies/hr sold for index ${i}: ${this.hourlySales}`);
 
-            // 1. Create element to hold the data
             var liEl = document.createElement('li');
-            // 2. Assign the data to the element
             liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`;
-            // console.log('just assigned a value liEl', liEl);
-            // 3. Put the element into the DOM
             seatacUl.appendChild(liEl);
         }
 
@@ -138,11 +135,8 @@ var seaTac = {
         // Create new prpty for obj contining sum for the day
 
         // For counter to generate total no. of cookies sold per day
-        // 1. Create element to hold the data
         var liElForTotal = document.createElement('li');
-        // 2. Assign the data to the element
         liElForTotal.textContent = `Total: ${this.totalCookies} cookies`;
-        // 3. Put the element into the DOM
         seatacUl.appendChild(liElForTotal);    
     }
 }
