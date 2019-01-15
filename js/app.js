@@ -1,14 +1,15 @@
 'use strict';
 
 // Days of week in array
-var days = ['Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday'
-];
+// var days = [ // Don't actually need array for this---not in reqs
+//     'Monday',
+//     'Tuesday',
+//     'Wednesday',
+//     'Thursday',
+//     'Friday',
+//     'Saturday',
+//     'Sunday'
+// ];
 
 // Create array of open hours that I can loop through
 var openHrs = [
@@ -62,6 +63,21 @@ var firstAndPike = {
     minCust: 23,
     maxCust: 65,
     avgNumCooksSale: 6.3,
+    render: function() {
+        var totalCookies = 0;
+        // Or try empty array approach Madi and I talked about; see line below
+        // numCookies
+        for (var i = 0; i < openHrs.length; i++) {
+
+            // 1. Create element to hold the data
+            var liEl = document.createElement('li');
+            // 2. Assign the data to the element
+            liEl.textContent = `${openHrs[i]}`;
+        }
+    
+    },
+
+    // Probably should find way to create a single 'render' method that incorporates the two separate methods below and makes it unnecessary to create them as separate indiv methods in the object
     getRandCusts: function() { // Generate random number of custs/hr
         var randCustNum = getRandomInt(this.minCust,this.maxCust);
         return randCustNum;
@@ -69,8 +85,7 @@ var firstAndPike = {
     getAvgCooksPerHr: function() { // Total 
         var avgCooksHr = cooksSoldPerHr(this.getRandCusts,this.avgNumCooksSale);
         return avgCooksHr;
-    },
+    }
     // Store no. of cookies/hr sold per location
-
-
+    
 }
