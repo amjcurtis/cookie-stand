@@ -56,22 +56,22 @@ CookieStand.prototype.render = function() {
     for (var i = 0; i < openHrs.length; i++) {
         var randCustNum = getRandomInt(this.minCust,this.maxCust);
         console.log(`Number of customers this hour: ${randCustNum}`);
-        var cookiesHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale));
-        this.hourlySales.push(cookiesHr);
+        var cookiesHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgCookiesEachSale));
+        this.cookiesSoldEachHour.push(cookiesHr);
         
         // Counter for summing total of cookies sold
-        this.totalCooks += this.hourlySales[i];
-        console.log(`Running total of cookies: ${this.totalCooks}`)
+        this.totalCookiesSold += this.cookiesSoldEachHour[i];
+        console.log(`Running total of cookies: ${this.totalCookiesSold}`)
 
         var liEl = document.createElement('li'); // 1. Create element to hold the data
-        liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`; // 2. Assign the data to the element
+        liEl.textContent = `${openHrs[i]}: ${this.cookiesSoldEachHour[i]} cookies`; // 2. Assign the data to the element
         firstAndPikeUl.appendChild(liEl); // 3. Put the element into the DOM
     }
-    console.log(`TOTAL cookies for day: ${this.totalCooks}`)
+    console.log(`TOTAL cookies for day: ${this.totalCookiesSold}`)
 
     // Generate HTML list items for total no. of cookies sold per day and add to DOM
     var liElForTotal = document.createElement('li'); // 1. Create element to hold the data
-    liElForTotal.textContent = `Total: ${this.totalCooks} cookies`; // 2. Assign the data to the element
+    liElForTotal.textContent = `Total: ${this.totalCookiesSold} cookies`; // 2. Assign the data to the element
     firstAndPikeUl.appendChild(liElForTotal); // 3. Put the element into the DOM
     return // Actually need a return stmt??
 };
@@ -101,6 +101,7 @@ console.log(alkiStand.render);
 
 
 
+/*
 // Location #1
 var firstAndPike = {
     location: '1st and Pike',
@@ -281,3 +282,5 @@ seaTac.render();
 seattleCtr.render();
 capitolHill.render();
 alki.render();
+
+*/
