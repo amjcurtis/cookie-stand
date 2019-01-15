@@ -64,22 +64,34 @@ var firstAndPike = {
         // var numCookies = []; // Or try empty array approach Madi and I talked about?
         for (var i = 0; i < openHrs.length; i++) {
             var randCustNum = getRandomInt(this.minCust,this.maxCust); // Should be inside or outside for loop?
-            var cookiesHr = cookiesSoldPerHr(randCustNum,avgNumCookiesSale); // Should be inside or outside for loop?
+            console.log(`Number of customers: ${randCustNum}`);
+            var cookiesHr = cookiesSoldPerHr(randCustNum,this.avgNumCookiesSale); // Should be inside or outside for loop?
+            console.log(`${randCustNum} * ${this.avgNumCookiesSale}`); // # of customers * cookies sold
+            console.log(`Cookies sold per hour: ${cookiesHr}`);
             this.hourlySales.push(cookiesHr);
-            console.log(sales);
+            console.log(`Cookies/hr sold for index ${i}: ${this.hourlySales}`);
 
             // 1. Create element to hold the data
             var liEl = document.createElement('li');
             // 2. Assign the data to the element
-            liEl.textContent = `${openHrs[i]}`;
+            liEl.textContent = `${openHrs[i]}: ${this.hourlySales[i]} cookies`;
+            console.log('just assigned a value liEl', liEl);
+            // 3. Put the element into the DOM
+            firstAndPikeUl.appendChild(liEl);
         }
-        console.log(render)
+
+        // Sum values of hourlySales array
+        
+        // create variable containing sum total
+        // Create new prpty for obj contining sum for the day
 
         // For counter to generate total no. of cookies sold per day
         // 1. Create element to hold the data
         var liEl = document.createElement('li');
         // 2. Assign the data to the element
         liEl.textContent = `${openHrs[i]}`;
+        // 3. Put the element into the DOM
+
     
         // Google how to sum an array of numbers
     },
@@ -96,3 +108,8 @@ var firstAndPike = {
     // Store no. of cookies/hr sold per location
     
 }
+
+// Location #
+
+// Call functions
+firstAndPike.render();
