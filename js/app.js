@@ -4,7 +4,7 @@
     // Days of week in array
     var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     // Number of hours the stores are open each day
-        // var operatingHrsDay = 14; // Think I'll actually need to loop through open hrs per biz reqs
+        var operatingHrsDay = 14; // Think I'll actually need to loop through open hrs per biz reqs
     // Create array of open hours that I can loop through
     var openHrs = [
         '6am',
@@ -23,7 +23,7 @@
         '7pm',
         '8pm'
     ];
-    
+
     // Create variables to use for accessing elements by ID
     var firstAndPikeUl = document.getElementById('firstandpike');
     var seatacUl = document.getElementById('seatac');
@@ -39,7 +39,10 @@
         return Math.floor(Math.random() * (max - min)) + min; // The max is exclus and the min is inclus
     }
     // Calc and store no. of cookies bought per hour based on rand num of customers and avg no. of cookies/hr sold at a given location; include variable that stores total no. to print below list of cookies/hr sold
-    
+    function cooksSoldPerHr(custs, cooks) { // 1st param is rand no. of customers, 2nd param is avg no. of cookies per sale
+        var cooksPerHr = custs * cooks;
+        return cooksPerHr;
+    }
     // Get total number of cookies to incl at end of list?? 
     // function getTotalCooks() { // Gotta be same as wk 1 lab 5 stretch goal (problem 6)?
     // }
@@ -56,6 +59,10 @@
             var randCustNum = getRandomInt(this.minCust,this.maxCust);
             return randCustNum;
         },
-
+        // Total 
+        getAvgCooksPerHr: function() {
+            var avgCooksHr = cooksSoldPerHr(this.getRandCusts,this.avgNumCooksSale);
+            return avgCooksHr;
+        },
 
     }
