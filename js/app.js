@@ -3,12 +3,12 @@
 // Array of open hours that I can loop through; has global scope
 var openHrs = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
 
-// // Create variables to use for accessing elements by ID
-// var firstAndPikeUl = document.getElementById('firstandpike');
-// var seatacUl = document.getElementById('seatac');
-// var seattleCtrUl = document.getElementById('seattlectr');
-// var capHillUl = document.getElementById('caphill');
-// var alkiUl = document.getElementById('alki');
+// Create variables to use for accessing elements by ID
+var firstAndPikeUl = document.getElementById('firstandpike');
+var seatacUl = document.getElementById('seatac');
+var seattleCtrUl = document.getElementById('seattlectr');
+var capHillUl = document.getElementById('caphill');
+var alkiUl = document.getElementById('alki');
 
 // Generate number btwn two values (learned from MDN doc on Math.random())
 function getRandomInt(min, max) {
@@ -65,11 +65,11 @@ CookieStand.prototype.render = function() {
 };
 
 // Create instances of CookieStand object
-var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3, dailyTotalsTable);
-var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2, dailyTotalsTable);
-var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7, dailyTotalsTable);
-var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3, dailyTotalsTable);
-var alkiStand = new CookieStand('Alki', 2, 16, 4.6, dailyTotalsTable);
+var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3, firstAndPikeUl);
+var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2, seatacUl);
+var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7, seattleCtrUl);
+var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3, capHillUl);
+var alkiStand = new CookieStand('Alki', 2, 16, 4.6, alkiUl);
 
 // Log table to console
 console.table(allCookieStands);
