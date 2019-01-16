@@ -3,12 +3,15 @@
 // Array of open hours that I can loop through; has global scope
 var openHours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
 
-// Create variables to use for accessing elements by ID
-var firstAndPikeUl = document.getElementById('firstandpike');
-var seatacUl = document.getElementById('seatac');
-var seattleCtrUl = document.getElementById('seattlectr');
-var capHillUl = document.getElementById('caphill');
-var alkiUl = document.getElementById('alki');
+// // Create variables to use for accessing elements by ID
+// var firstAndPikeUl = document.getElementById('firstandpike');
+// var seatacUl = document.getElementById('seatac');
+// var seattleCtrUl = document.getElementById('seattlectr');
+// var capHillUl = document.getElementById('caphill');
+// var alkiUl = document.getElementById('alki');
+
+// Access the table on the DOM; global variable
+var dailyTotalsTable = document.getElementById('dailytotalstable');
 
 // Generate number btwn two values (learned from MDN doc on Math.random())
 function getRandomInt(min, max) {
@@ -26,15 +29,12 @@ function cookiesSoldPerHr(custs, cookies) { // 1st param is rand no. of customer
 // Global array of all CookieStand objects
 var allCookieStands = [];
 
-// Access the table on the DOM; global variable
-var dailyTotalsTable = document.getElementById('dailytotaltable');
-
-function CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale, locationElement) {
+function CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale,/* locationElement*/) {
     this.locationName = locationName;
     this.minCustomers = minCustomers;
     this.maxCustomers = maxCustomers;
     this.avgCookiesEachSale = avgCookiesEachSale;
-    this.locationElement = locationElement;
+    // this.locationElement = locationElement;
     this.cookiesSoldEachHour = [];
     this.totalCookiesSold = 0;
     allCookieStands.push(this);
@@ -48,25 +48,25 @@ CookieStand.prototype.render = function() {
         
         this.totalCookiesSold += this.cookiesSoldEachHour[i]; // Counter for summing total of cookies sold
 
-        var liEl = document.createElement('li'); // 1. Create element to hold the data
-        liEl.textContent = `${openHours[i]}: ${this.cookiesSoldEachHour[i]} cookies`; // 2. Assign the data to the element
-        this.locationElement.appendChild(liEl); // 3. Put the element into the DOM
+        // var liEl = document.createElement('li'); // 1. Create element to hold the data
+        // liEl.textContent = `${openHours[i]}: ${this.cookiesSoldEachHour[i]} cookies`; // 2. Assign the data to the element
+        // this.locationElement.appendChild(liEl); // 3. Put the element into the DOM
     }
-    console.log(`Total cookies for day at ${this.locationName}: ${this.totalCookiesSold}`)
+    // console.log(`Total cookies for day at ${this.locationName}: ${this.totalCookiesSold}`)
 
-    // Generate HTML list items for total no. of cookies sold per day and add to DOM
-    var liElForTotal = document.createElement('li'); // 1. Create element to hold the data
-    liElForTotal.textContent = `Total: ${this.totalCookiesSold} cookies`; // 2. Assign the data to the element
-    this.locationElement.appendChild(liElForTotal); // 3. Put the element into the DOM
-    // return // Actually need a return stmt??
+    // // Generate HTML list items for total no. of cookies sold per day and add to DOM
+    // var liElForTotal = document.createElement('li'); // 1. Create element to hold the data
+    // liElForTotal.textContent = `Total: ${this.totalCookiesSold} cookies`; // 2. Assign the data to the element
+    // this.locationElement.appendChild(liElForTotal); // 3. Put the element into the DOM
+    // // return // Actually need a return stmt??
 };
 
 // Create instances of CookieStand object // Could actually omit the "var <name> =" part; unnecessary as these obj instances are 
-var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3, firstAndPikeUl);
-var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2, seatacUl);
-var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7, seattleCtrUl);
-var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3, capHillUl);
-var alkiStand = new CookieStand('Alki', 2, 16, 4.6, alkiUl);
+var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3);
+var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2);
+var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7);
+var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3);
+var alkiStand = new CookieStand('Alki', 2, 16, 4.6);
 
 // Log table to console
 console.table(allCookieStands);
