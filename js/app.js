@@ -1,14 +1,14 @@
 'use strict';
 
-// Create array of open hours that I can loop through; has global scope
+// Array of open hours that I can loop through; has global scope
 var openHrs = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
 
-// Create variables to use for accessing elements by ID
-var firstAndPikeUl = document.getElementById('firstandpike');
-var seatacUl = document.getElementById('seatac');
-var seattleCtrUl = document.getElementById('seattlectr');
-var capHillUl = document.getElementById('caphill');
-var alkiUl = document.getElementById('alki');
+// // Create variables to use for accessing elements by ID
+// var firstAndPikeUl = document.getElementById('firstandpike');
+// var seatacUl = document.getElementById('seatac');
+// var seattleCtrUl = document.getElementById('seattlectr');
+// var capHillUl = document.getElementById('caphill');
+// var alkiUl = document.getElementById('alki');
 
 // Generate number btwn two values (learned from MDN doc on Math.random())
 function getRandomInt(min, max) {
@@ -23,9 +23,10 @@ function cookiesSoldPerHr(custs, cookies) { // 1st param is rand no. of customer
     return cookiesPerHr;
 }
 
+// Global array of all CookieStand objects
 var allCookieStands = [];
 
-// Access the table on the DOM
+// Access the table on the DOM; global variable
 var dailyTotalsTable = document.getElementById('dailytotaltable');
 
 function CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale, locationElement) {
@@ -64,11 +65,11 @@ CookieStand.prototype.render = function() {
 };
 
 // Create instances of CookieStand object
-var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3, firstAndPikeUl);
-var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2, seatacUl);
-var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7, seattleCtrUl);
-var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3, capHillUl);
-var alkiStand = new CookieStand('Alki', 2, 16, 4.6, alkiUl);
+var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3, dailyTotalsTable);
+var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2, dailyTotalsTable);
+var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7, dailyTotalsTable);
+var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3, dailyTotalsTable);
+var alkiStand = new CookieStand('Alki', 2, 16, 4.6, dailyTotalsTable);
 
 // Log table to console
 console.table(allCookieStands);
@@ -79,7 +80,7 @@ function makeHeaderRow() {
     // Create element for header row
     var trElmnt = document.createElement('tr');
     var thEl = document.createElement('th');
-    thEl.textContent = 'Stand Location'; // Empty string for first header column?
+    thEl.textContent = 'Stand Location'; // Or empty string for first header column
     trElmnt.appendChild(thEl);
     
     // Add hours via for loop
@@ -121,36 +122,41 @@ CookieStand.prototype.tablify = function() {
 }
 
 // 3rd table function: make footer row
-// PROBABLY need to define this as a prototype method rather'n a stand-alone function so it can access obj prprties
-CookieStand.prototype.makeFooterRow = function() {
+// Can define this as a stand-alone function rather'n a prototype method b/c it just needs to access global arrays: allCookieStands and openHrs?
+function makeFooterRow() {
     var trElmnt = document.createElement('tr');
     var tdEl = document.createElement('td');
     tdEl.textContent = 'Totals';
+    console.log(tdEl.textContent);
     trElmnt.appendChild(tdEl);
 
     // FOR COLUMN TOTALS will need to have nested for loops b/c we'll iterate across arrays
     // First loop
-    for (var i = 0; i < openHrs.length; i++) {
+    for (var i = 0; i < openHrs.length; i++) { // "Rows" loop
         tdEl = document.createElement('td');
-        // Does 2nd for loop go here, since textContent should be total no. of cookies sold per hr at all locations?
-        tdEl.textContent = this.cookiesSoldEachHour[i]; // Is "this.cookiesSoldEachHour[i]" correct here? 
+        // // Does 2nd for loop go here, since textContent should be total no. of cookies sold per hr at all locations?
+        // tdEl.textContent = this.cookiesSoldEachHour[i]; // Is "this.cookiesSoldEachHour[i]" correct here? 
 
         // Second loop
-        for () {
-
+        for (var j = 0; j < allCookieStands.length; j++) { // "Columns" loop
+            tdEl = document.createElement('td');
+            tdEl.textContent = allCookieStands[j].cookiesSoldEachHour[j];
+            console.log(tdEl.textContent);
+            trElmnt.appendChild(tdEl);
         }
 
         trElmnt.appendChild(tdEl); // Goes after 2nd loop? // Why's fix suggestion says it's unreachable (goes away after 2nd for is commented out)?
     }
 
     // Sum total of daily totals
-    
+    tdEl.textContent = 'sdasd'; // Not working yet; not sure of the logic yet
+    trElmnt.appendChild(tdEl);
+
     // Add to the DOM
-    dailyTotalsTable.appendChild(tdEl);
+    dailyTotalsTable.appendChild(trElmnt); // or tdEl? or trEl?
 }
 
-
-// Nice single function to render all individuual locations
+// Single function to render all individual locations
 function renderAllCookieStands() {
     for (var i = 0; i < allCookieStands.length; i++) {
         allCookieStands[i].tablify();
@@ -163,15 +169,16 @@ function invokeConstructor() {
     }
 }
 
-// COULD make pageLoad function that calls (in proper order) all my function calls for creating and populating the table
+// Calls (in proper order) all my function calls for creating and populating the table
+function pageLoad() {
+    invokeConstructor();
+    makeHeaderRow();
+    renderAllCookieStands();
+    makeFooterRow();
+}
 
-// Calls all the instances of the object and triggers populating of the objects' data into table 
-invokeConstructor();
-// Call function to make header row
-makeHeaderRow();
-// Call function to render all individual locations stored in array
-renderAllCookieStands();
-// ?? Make separate function similar to makeHeaderRow for footer?
+// Call pageLoad function that calls "render" on all object instances and also calls all 3 table functions
+pageLoad();
 
 // Console log contents of array of object instances
 console.log(allCookieStands);
