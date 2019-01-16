@@ -44,8 +44,8 @@ CookieStand.prototype.render = function() {
     for (var i = 0; i < openHrs.length; i++) {
         var randCustNum = getRandomInt(this.minCustomers,this.maxCustomers);
         // console.log(`Number of customers this hour: ${randCustNum}`);
-        var cookiesHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgCookiesEachSale));
-        this.cookiesSoldEachHour.push(cookiesHr);
+        var cookiesEachHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgCookiesEachSale));
+        this.cookiesSoldEachHour.push(cookiesEachHr);
         
         // Counter for summing total of cookies sold
         this.totalCookiesSold += this.cookiesSoldEachHour[i];
@@ -64,7 +64,7 @@ CookieStand.prototype.render = function() {
     return // Actually need a return stmt??
 };
 
-// Create instances of CookieStand object
+// Create instances of CookieStand object // Could actually omit the "var <name> =" part; unnecessary as these obj instances are 
 var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3, firstAndPikeUl);
 var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2, seatacUl);
 var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7, seattleCtrUl);
@@ -122,7 +122,7 @@ CookieStand.prototype.tablify = function() {
 }
 
 // 3rd table function: make footer row
-// Can define this as a stand-alone function rather'n a prototype method b/c it just needs to access global arrays: allCookieStands and openHrs?
+// Can define this as a stand-alone function rather'n a prototype method b/c it just needs to access global arrays: allCookieStands and openHrs
 function makeFooterRow() {
     var trElmnt = document.createElement('tr');
     var tdEl = document.createElement('td');
@@ -130,30 +130,30 @@ function makeFooterRow() {
     console.log(tdEl.textContent);
     trElmnt.appendChild(tdEl);
 
-    // FOR COLUMN TOTALS will need to have nested for loops b/c we'll iterate across arrays
+    // For column totals will need to have nested for loops b/c we'll iterate across arrays
     // First loop
     for (var i = 0; i < openHrs.length; i++) { // "Rows" loop
-        tdEl = document.createElement('td');
-        // // Does 2nd for loop go here, since textContent should be total no. of cookies sold per hr at all locations?
-        // tdEl.textContent = this.cookiesSoldEachHour[i]; // Is "this.cookiesSoldEachHour[i]" correct here? 
+        
+        var totalPerHour = 0;
 
         // Second loop
         for (var j = 0; j < allCookieStands.length; j++) { // "Columns" loop
-            tdEl = document.createElement('td');
-            tdEl.textContent = allCookieStands[j].cookiesSoldEachHour[j];
-            console.log(tdEl.textContent);
-            trElmnt.appendChild(tdEl);
+            
+            totalPerHour += allCookieStands[j].cookiesSoldEachHour[i];
+            console.log(`totalPerHour is now: ${totalPerHour}`);
+            console.log(`cookies for each store at ${openHrs[i]}: ${allCookieStands[j].cookiesSoldEachHour[i]}`)
         }
-
-        trElmnt.appendChild(tdEl); // Goes after 2nd loop? // Why's fix suggestion says it's unreachable (goes away after 2nd for is commented out)?
+        tdEl = document.createElement('td');
+        tdEl.textContent = totalPerHour;
+        trElmnt.appendChild(tdEl); 
     }
 
     // Sum total of daily totals
-    tdEl.textContent = 'sdasd'; // Not working yet; not sure of the logic yet
+    tdEl.textContent = 'sdasd'; // Can add up hour totals either by row or by column // Create array to store running total from whichever of those two ways I choose?  
     trElmnt.appendChild(tdEl);
 
     // Add to the DOM
-    dailyTotalsTable.appendChild(trElmnt); // or tdEl? or trEl?
+    dailyTotalsTable.appendChild(trElmnt); 
 }
 
 // Single function to render all individual locations
