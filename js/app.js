@@ -77,8 +77,24 @@ console.table(allCookieStands);
 CookieStand.prototype.tablify = function() {
     // make tr
 
-    // create
+    // create, content, append for 
 };
+
+function makeHeaderRow() {
+    var trElmnt = document.createElement('tr');
+    var thEl = document.createElement('th');
+    thEl.textContent = ''; // Empty string for first header column?
+    trElmnt.appendChild(thEl);
+    
+    // Inside for loop?
+    for (var i = 0; i < openHrs.length; i++) {
+        thEl.textContent = document.createElement('th'); // Needs to be contents of openHrs array
+        thEl.textContent = openHrs[i];
+        trElmnt.appendChild(thEl);
+    }
+
+    dailyTotalsTable.appendChild(trElmnt); // Need one of these inside for loop at end of loop?
+}
 
 
 // Call "render" method on instances of CookieStand object; made obsolete by renderAllCoolieStands function
@@ -99,6 +115,7 @@ function renderAllCookieStands() {
 makeHeaderRow();
 // Call function to render all individual locations stored in array
 renderAllCookieStands();
+// Make separate function similar to makeHeaderRow for footer?
 
 // Console log contents of array of object instances
 console.log(allCookieStands);
