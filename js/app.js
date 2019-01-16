@@ -76,14 +76,15 @@ console.table(allCookieStands);
 
 // 1st table function: make header row
 function makeHeaderRow() {
+    // Create element for header row
     var trElmnt = document.createElement('tr');
     var thEl = document.createElement('th');
-    thEl.textContent = ''; // Empty string for first header column?
+    thEl.textContent = 'Stand Location'; // Empty string for first header column?
     trElmnt.appendChild(thEl);
     
     // Add hours via for loop
     for (var i = 0; i < openHrs.length; i++) {
-        thEl = document.createElement('th'); // Needs to be contents of openHrs array
+        thEl = document.createElement('th');
         thEl.textContent = openHrs[i];
         trElmnt.appendChild(thEl);
     }
@@ -98,14 +99,14 @@ function makeHeaderRow() {
 
 // 2nd table function: make rows for table body content
 CookieStand.prototype.tablify = function() {
-    // Make element accessing this.name
+    // Make element accessing this.locationName
     var trEl = document.createElement('tr');
     var tdEl = document.createElement('td');
     tdEl.textContent = this.locationName;
     trEl.appendChild(tdEl);
 
-    // probably one for loop for creating a new row
-    for (var i = 0; i < openHrs.length; i++) { // For every ... make a new row. allCookieStands.length? Every ...?
+    // For every hour grab the no. of cookies sold and add to table
+    for (var i = 0; i < openHrs.length; i++) {
         tdEl = document.createElement('td');
         tdEl.textContent = this.cookiesSoldEachHour[i];
         trEl.appendChild(tdEl);
@@ -119,25 +120,35 @@ CookieStand.prototype.tablify = function() {
     dailyTotalsTable.appendChild(trEl);
 }
 
-
-// FOR COLUMN TOTALS will need to have nested for loop b/c we'll iterate across arrays
-
-// ?? Any real reason to make this an obj method rather'n simply a stand-alone global function?
-// Define method to tablify data 
-// CookieStand.prototype.tablify = function() {
-//     // make tr
-
-//     // create, content, append for 
-// };
-
 // 3rd table function: make footer row
+// PROBABLY need to define this as a prototype method rather'n a stand-alone function so it can access obj prprties
+CookieStand.prototype.makeFooterRow = function() {
+    var trElmnt = document.createElement('tr');
+    var tdEl = document.createElement('td');
+    tdEl.textContent = 'Totals';
+    trElmnt.appendChild(tdEl);
 
-// Call "render" method on instances of CookieStand object; made obsolete by renderAllCoolieStands function
-// firstAndPikeStand.render();
-// seaTacAirportStand.render();
-// seattleCenterStand.render();
-// capitolHillStand.render();
-// alkiStand.render();
+    // FOR COLUMN TOTALS will need to have nested for loops b/c we'll iterate across arrays
+    // First loop
+    for (var i = 0; i < openHrs.length; i++) {
+        tdEl = document.createElement('td');
+        // Does 2nd for loop go here, since textContent should be total no. of cookies sold per hr at all locations?
+        tdEl.textContent = this.cookiesSoldEachHour[i]; // Is "this.cookiesSoldEachHour[i]" correct here? 
+
+        // Second loop
+        for () {
+
+        }
+
+        trElmnt.appendChild(tdEl); // Goes after 2nd loop? // Why's fix suggestion says it's unreachable (goes away after 2nd for is commented out)?
+    }
+
+    // Sum total of daily totals
+    
+    // Add to the DOM
+    dailyTotalsTable.appendChild(tdEl);
+}
+
 
 // Nice single function to render all individuual locations
 function renderAllCookieStands() {
@@ -152,9 +163,9 @@ function invokeConstructor() {
     }
 }
 
-// COULD make pageLoad function that contains all my function calls for creating and populating the table
+// COULD make pageLoad function that calls (in proper order) all my function calls for creating and populating the table
 
-// 
+// Calls all the instances of the object and triggers populating of the objects' data into table 
 invokeConstructor();
 // Call function to make header row
 makeHeaderRow();
