@@ -73,29 +73,47 @@ var alkiStand = new CookieStand('Alki', 2, 16, 4.6, alkiUl);
 // Log table to console
 console.table(allCookieStands);
 
-// Define method to tablify data 
-CookieStand.prototype.tablify = function() {
-    // make tr
 
-    // create, content, append for 
-};
-
+// 1st table function: make header row
 function makeHeaderRow() {
     var trElmnt = document.createElement('tr');
     var thEl = document.createElement('th');
     thEl.textContent = ''; // Empty string for first header column?
     trElmnt.appendChild(thEl);
     
-    // Inside for loop?
+    // Add hours via for loop
     for (var i = 0; i < openHrs.length; i++) {
-        thEl.textContent = document.createElement('th'); // Needs to be contents of openHrs array
+        thEl = document.createElement('th'); // Needs to be contents of openHrs array
         thEl.textContent = openHrs[i];
         trElmnt.appendChild(thEl);
     }
 
-    dailyTotalsTable.appendChild(trElmnt); // Need one of these inside for loop at end of loop?
+    // Add "Daily Location Total"
+    thEl.textContent = 'Daily Location Total';
+    trElmnt.appendChild(thEl);
+
+    dailyTotalsTable.appendChild(trElmnt); // Needs to be done for *every row*
 }
 
+// 2nd table function: make rows for table body content
+function tablify() {
+    // probably one for loop for creating a new row
+    for (var i = 0; i < ...; i++) { // For every ... make a new row. Every *stand location*? Every ...?
+        var trEl = document.createElement('tr'); // Make a <tr>
+        
+        // then a second, nested for loop for populating each single row left-to-right 
+    }
+}
+
+// ?? Any real reason to make this an obj method rather'n simply a stand-alone global function?
+// Define method to tablify data 
+// CookieStand.prototype.tablify = function() {
+//     // make tr
+
+//     // create, content, append for 
+// };
+
+// 3rd table function: make footer row
 
 // Call "render" method on instances of CookieStand object; made obsolete by renderAllCoolieStands function
 // firstAndPikeStand.render();
@@ -111,11 +129,14 @@ function renderAllCookieStands() {
     }
 }
 
+
+// COULD make pageLoad function that contains all my function calls for creating and populating the table
+
 // Call function to make header row
 makeHeaderRow();
 // Call function to render all individual locations stored in array
 renderAllCookieStands();
-// Make separate function similar to makeHeaderRow for footer?
+// ?? Make separate function similar to makeHeaderRow for footer?
 
 // Console log contents of array of object instances
 console.log(allCookieStands);
