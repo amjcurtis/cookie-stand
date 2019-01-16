@@ -1,7 +1,7 @@
 'use strict';
 
 // Array of open hours that I can loop through; has global scope
-var openHrs = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
+var openHours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
 
 // Create variables to use for accessing elements by ID
 var firstAndPikeUl = document.getElementById('firstandpike');
@@ -41,18 +41,15 @@ function CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSal
 }
 
 CookieStand.prototype.render = function() {
-    for (var i = 0; i < openHrs.length; i++) {
+    for (var i = 0; i < openHours.length; i++) {
         var randCustNum = getRandomInt(this.minCustomers,this.maxCustomers);
-        // console.log(`Number of customers this hour: ${randCustNum}`);
         var cookiesEachHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgCookiesEachSale));
         this.cookiesSoldEachHour.push(cookiesEachHr);
         
-        // Counter for summing total of cookies sold
-        this.totalCookiesSold += this.cookiesSoldEachHour[i];
-        console.log(`Running total of cookies: ${this.totalCookiesSold}`)
+        this.totalCookiesSold += this.cookiesSoldEachHour[i]; // Counter for summing total of cookies sold
 
         var liEl = document.createElement('li'); // 1. Create element to hold the data
-        liEl.textContent = `${openHrs[i]}: ${this.cookiesSoldEachHour[i]} cookies`; // 2. Assign the data to the element
+        liEl.textContent = `${openHours[i]}: ${this.cookiesSoldEachHour[i]} cookies`; // 2. Assign the data to the element
         this.locationElement.appendChild(liEl); // 3. Put the element into the DOM
     }
     console.log(`Total cookies for day at ${this.locationName}: ${this.totalCookiesSold}`)
@@ -61,7 +58,7 @@ CookieStand.prototype.render = function() {
     var liElForTotal = document.createElement('li'); // 1. Create element to hold the data
     liElForTotal.textContent = `Total: ${this.totalCookiesSold} cookies`; // 2. Assign the data to the element
     this.locationElement.appendChild(liElForTotal); // 3. Put the element into the DOM
-    return // Actually need a return stmt??
+    // return // Actually need a return stmt??
 };
 
 // Create instances of CookieStand object // Could actually omit the "var <name> =" part; unnecessary as these obj instances are 
@@ -84,9 +81,9 @@ function makeHeaderRow() {
     trElmnt.appendChild(thEl);
     
     // Add hours via for loop
-    for (var i = 0; i < openHrs.length; i++) {
+    for (var i = 0; i < openHours.length; i++) {
         thEl = document.createElement('th');
-        thEl.textContent = openHrs[i];
+        thEl.textContent = openHours[i];
         trElmnt.appendChild(thEl);
     }
 
@@ -107,7 +104,7 @@ CookieStand.prototype.tablify = function() {
     trEl.appendChild(tdEl);
 
     // For every hour grab the no. of cookies sold and add to table
-    for (var i = 0; i < openHrs.length; i++) {
+    for (var i = 0; i < openHours.length; i++) {
         tdEl = document.createElement('td');
         tdEl.textContent = this.cookiesSoldEachHour[i];
         trEl.appendChild(tdEl);
@@ -122,38 +119,33 @@ CookieStand.prototype.tablify = function() {
 }
 
 // 3rd table function: make footer row
-// Can define this as a stand-alone function rather'n a prototype method b/c it just needs to access global arrays: allCookieStands and openHrs
+// Can define this as a stand-alone function rather'n a prototype method b/c it just needs to access global arrays: allCookieStands and openHours
 function makeFooterRow() {
     var trElmnt = document.createElement('tr');
     var tdEl = document.createElement('td');
     tdEl.textContent = 'Totals';
-    console.log(tdEl.textContent);
     trElmnt.appendChild(tdEl);
 
-    // For column totals will need to have nested for loops b/c we'll iterate across arrays
-    // First loop
-    for (var i = 0; i < openHrs.length; i++) { // "Rows" loop
-        
-        var totalPerHour = 0;
+    // Set counter for total of totals
+    var totalOfTotals = 0; // outside outer loop so doesn't reset to 0 with each loop iteration
+    for (var i = 0; i < openHours.length; i++) { // "Rows" loop
 
-        // Second loop
+        var totalPerHour = 0; // Set counter for total cookies sold per hour across all stands
+
         for (var j = 0; j < allCookieStands.length; j++) { // "Columns" loop
-            
             totalPerHour += allCookieStands[j].cookiesSoldEachHour[i];
-            console.log(`totalPerHour is now: ${totalPerHour}`);
-            console.log(`cookies for each store at ${openHrs[i]}: ${allCookieStands[j].cookiesSoldEachHour[i]}`)
         }
+        totalOfTotals += totalPerHour;
         tdEl = document.createElement('td');
         tdEl.textContent = totalPerHour;
         trElmnt.appendChild(tdEl); 
     }
 
-    // Sum total of daily totals
-    tdEl.textContent = 'sdasd'; // Can add up hour totals either by row or by column // Create array to store running total from whichever of those two ways I choose?  
+    // Add up total of daily totals across all cookie stands
+    tdEl.textContent = totalOfTotals; 
+    console.log(`Total cookies sold across all stores: ${totalOfTotals}`)
     trElmnt.appendChild(tdEl);
-
-    // Add to the DOM
-    dailyTotalsTable.appendChild(trElmnt); 
+    dailyTotalsTable.appendChild(trElmnt); // Add to the DOM 
 }
 
 // Single function to render all individual locations
