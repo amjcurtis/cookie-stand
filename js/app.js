@@ -92,7 +92,8 @@ function makeHeaderRow() {
     thEl.textContent = 'Daily Location Total';
     trElmnt.appendChild(thEl);
 
-    dailyTotalsTable.appendChild(trElmnt); // Needs to be done for *every row*
+    // Add to the DOM
+    dailyTotalsTable.appendChild(trElmnt); // Needs to be done for *every row*?
 }
 
 // 2nd table function: make rows for table body content
@@ -108,11 +109,13 @@ CookieStand.prototype.tablify = function() {
         tdEl = document.createElement('td');
         tdEl.textContent = this.cookiesSoldEachHour[i];
         trEl.appendChild(tdEl);
-        
-        // then a second, nested for loop for populating each single row left-to-right 
     }
 
+    // Populate Daily Location Total column
+    tdEl.textContent = this.totalCookiesSold;
+    trEl.appendChild(tdEl);
 
+    // Add to the DOM
     dailyTotalsTable.appendChild(trEl);
 }
 
