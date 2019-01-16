@@ -1,23 +1,7 @@
 'use strict';
 
 // Create array of open hours that I can loop through; has global scope
-var openHrs = [
-    '6am',
-    '7am',
-    '8am',
-    '9am',
-    '10am',
-    '11am',
-    '12pm',
-    '1pm',
-    '2pm',
-    '3pm',
-    '4pm',
-    '5pm',
-    '6pm',
-    '7pm',
-    '8pm'
-];
+var openHrs = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
 
 // Create variables to use for accessing elements by ID
 var firstAndPikeUl = document.getElementById('firstandpike');
@@ -39,8 +23,10 @@ function cookiesSoldPerHr(custs, cookies) { // 1st param is rand no. of customer
     return cookiesPerHr;
 }
 
-
 var allCookieStands = [];
+
+// Access the table on the DOM
+var dailyTotalsTable = document.getElementById('dailytotaltable');
 
 function CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale, locationElement) {
     this.locationName = locationName;
@@ -56,7 +42,7 @@ function CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSal
 CookieStand.prototype.render = function() {
     for (var i = 0; i < openHrs.length; i++) {
         var randCustNum = getRandomInt(this.minCustomers,this.maxCustomers);
-        console.log(`Number of customers this hour: ${randCustNum}`);
+        // console.log(`Number of customers this hour: ${randCustNum}`);
         var cookiesHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgCookiesEachSale));
         this.cookiesSoldEachHour.push(cookiesHr);
         
@@ -68,7 +54,7 @@ CookieStand.prototype.render = function() {
         liEl.textContent = `${openHrs[i]}: ${this.cookiesSoldEachHour[i]} cookies`; // 2. Assign the data to the element
         this.locationElement.appendChild(liEl); // 3. Put the element into the DOM
     }
-    console.log(`TOTAL cookies for day: ${this.totalCookiesSold}`)
+    console.log(`Total cookies for day at ${this.locationName}: ${this.totalCookiesSold}`)
 
     // Generate HTML list items for total no. of cookies sold per day and add to DOM
     var liElForTotal = document.createElement('li'); // 1. Create element to hold the data
@@ -84,21 +70,35 @@ var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7, seattleC
 var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3, capHillUl);
 var alkiStand = new CookieStand('Alki', 2, 16, 4.6, alkiUl);
 
-// Call "render" method on instances of CookieStand object
-firstAndPikeStand.render();
-console.log(firstAndPikeStand.render);
+// Log table to console
+console.table(allCookieStands);
 
-seaTacAirportStand.render();
-console.log(seaTacAirportStand.render);
+// Define method to tablify data 
+CookieStand.prototype.tablify = function() {
+    // make tr
 
-seattleCenterStand.render();
-console.log(seattleCenterStand.render);
+    // create
+};
 
-capitolHillStand.render();
-console.log(capitolHillStand.render);
 
-alkiStand.render();
-console.log(alkiStand.render);
+// Call "render" method on instances of CookieStand object; made obsolete by renderAllCoolieStands function
+// firstAndPikeStand.render();
+// seaTacAirportStand.render();
+// seattleCenterStand.render();
+// capitolHillStand.render();
+// alkiStand.render();
+
+// Nice single function to render all individuual locations
+function renderAllCookieStands() {
+    for (var i = 0; i < allCookieStands.length; i++) {
+        allCookieStands[i].tablify();
+    }
+}
+
+// Call function to make header row
+makeHeaderRow();
+// Call function to render all individual locations stored in array
+renderAllCookieStands();
 
 // Console log contents of array of object instances
 console.log(allCookieStands);
