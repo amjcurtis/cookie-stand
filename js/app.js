@@ -96,14 +96,28 @@ function makeHeaderRow() {
 }
 
 // 2nd table function: make rows for table body content
-function tablify() {
+CookieStand.prototype.tablify = function() {
+    // Make element accessing this.name
+    var trEl = document.createElement('tr');
+    var tdEl = document.createElement('td');
+    tdEl.textContent = this.locationName;
+    trEl.appendChild(tdEl);
+
     // probably one for loop for creating a new row
-    for (var i = 0; i < ...; i++) { // For every ... make a new row. Every *stand location*? Every ...?
-        var trEl = document.createElement('tr'); // Make a <tr>
+    for (var i = 0; i < openHrs.length; i++) { // For every ... make a new row. allCookieStands.length? Every ...?
+        tdEl = document.createElement('td');
+        tdEl.textContent = this.cookiesSoldEachHour[i];
+        trEl.appendChild(tdEl);
         
         // then a second, nested for loop for populating each single row left-to-right 
     }
+
+
+    dailyTotalsTable.appendChild(trEl);
 }
+
+
+// FOR COLUMN TOTALS will need to have nested for loop b/c we'll iterate across arrays
 
 // ?? Any real reason to make this an obj method rather'n simply a stand-alone global function?
 // Define method to tablify data 
@@ -129,9 +143,16 @@ function renderAllCookieStands() {
     }
 }
 
+function invokeConstructor() {
+    for (var i = 0; i < allCookieStands.length; i++) {
+        allCookieStands[i].render();
+    }
+}
 
 // COULD make pageLoad function that contains all my function calls for creating and populating the table
 
+// 
+invokeConstructor();
 // Call function to make header row
 makeHeaderRow();
 // Call function to render all individual locations stored in array
