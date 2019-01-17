@@ -26,10 +26,9 @@ var allCookieStands = [];
 
 // Event handler function for submission of new locations
 function handleFormSubmission(event) {
-    // console.log('log of the event object', event);
-    // console.log('log of the event.target', event.target);
-    // console.log('log of the event.target.name', event.target.name);
-    console.log(event.target.name.value);
+    console.log('log of the event object', event);
+    console.log('log of the event.target', event.target);
+    console.log('log of the event.target.name', event.target.name);
 
     event.preventDefault(); // Prevents page reload on a "submit" event
     var locationName = event.target.name.value;
@@ -37,7 +36,7 @@ function handleFormSubmission(event) {
     var maxCustomers = parseInt(event.target.max.value);
     var avgCookiesEachSale = parseInt(event.target.avg.value);
     new CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale);
-    dailyTotalsTable.textContent = [];
+    dailyTotalsTable.textContent = []; // ACTUALLY NEED THIS?
 
     /*
     // Validation to prevent empty form fields; check out HTML5 form validation for better way
@@ -52,8 +51,6 @@ function handleFormSubmission(event) {
     var newSubmission = new CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale); 
     console.log('This is the CookieStand instance:', newSubmission);
 
-    console.log('Pat added ' + event.target.name.value + ' at ' + Date());
-
     // Empty form fields after data has been grabbed
     event.target.name.value = null;
     event.target.min.value = null;
@@ -61,19 +58,19 @@ function handleFormSubmission(event) {
     event.target.avg.value = null;
 
     allFormSubmissions.unshift(newSubmission);
-    renderAllInputs();
+    renderAllCookieStands();
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Event listener for submission of form
 salesForm.addEventListener('submit', handleFormSubmission);
 
-// Event listener for "Clear sales form" button
-clearSalesForm.addEventListener('click', function() {
+// // Event listener for "Clear sales form" button
+// clearSalesForm.addEventListener('click', function() {
 
-    console.log('You\'ve cleared the form!');
-    allFormSubmissions = [];
-});
+//     console.log('You\'ve cleared the form!');
+//     allFormSubmissions = [];
+// });
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // COOKIE STAND FUNCTION DECLARATIONS
@@ -118,9 +115,6 @@ var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2);
 var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7);
 var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3);
 var alkiStand = new CookieStand('Alki', 2, 16, 4.6);
-
-// Log table to console
-console.table(allCookieStands);
 
 // 1st table function: make header row
 function makeHeaderRow() {
@@ -192,7 +186,6 @@ function makeFooterRow() {
 
     // Add up total of daily totals across all cookie stands
     tdEl.textContent = totalOfTotals; 
-    console.log(`Total cookies sold across all stores: ${totalOfTotals}`)
     trElmnt.appendChild(tdEl);
     dailyTotalsTable.appendChild(trElmnt); // Add to the DOM 
 }
