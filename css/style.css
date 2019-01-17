@@ -28,6 +28,9 @@ Play around with border radius
 How to style first column?
 How to style every other row?
 
-Check out CSS tricks 
+Idea: create class for .invalidInput to style alert response to bad input
+    <variable name>.classList.add(<classname e.g. invalidInput>);
+
+Check out CSS Tricks 
 
 */

@@ -13,16 +13,6 @@ var allCookieStands = [];
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // FORM SUBMISSION FUNCTION DECLARATIONS
 
-// DON'T NEED THIS RENDER FUNCTION; ALREADY GOT THIS BELOW WITH renderAllCookieStands FUNCTION
-// Function that goes thru array of form inputs (?) and calls rendering method on each
-// function renderAllInputs() {
-//     dailyTotalsTable// We want to add row to table here
-
-//     for (var i = 0; i < allFormSubmissions.length; i++) {
-//         dailyTotalsTable.appendChild(allFormSubmissions[i].tablify());
-//     }
-// }
-
 // Event handler function for submission of new locations
 function handleFormSubmission(event) {
     console.log('log of the event object', event);
@@ -113,7 +103,7 @@ var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3);
 var alkiStand = new CookieStand('Alki', 2, 16, 4.6);
 
 // 1st table function: make header row
-function makeHeaderRow() {
+function renderHeaderRow() {
     // Create element for header row
     var trElmnt = document.createElement('tr');
     var thEl = document.createElement('th');
@@ -124,7 +114,7 @@ function makeHeaderRow() {
     for (var i = 0; i < openHours.length; i++) {
         thEl = document.createElement('th');
         thEl.textContent = openHours[i];
-        trElmnt.appendChild(thEl);
+        trElmnt.appendChild(thEl); 
     }
     var thEl = document.createElement('th'); // Need or doesn't need fresh declaration
     
@@ -161,18 +151,16 @@ CookieStand.prototype.tablify = function() {
 }
 
 // 3rd table function: make footer row
-// Can define this as a stand-alone function rather'n a prototype method b/c it just needs to access global arrays: allCookieStands and openHours
-function makeFooterRow() {
+// Can define this as a global function rather than a prototype method b/c it just needs to access global arrays
+function renderFooterRow() {
     var trElmnt = document.createElement('tr');
     var tdEl = document.createElement('td');
     tdEl.textContent = 'Totals';
     trElmnt.appendChild(tdEl);
 
-    var totalOfTotals = 0; // Set counter for total of totals outside outer loop so doesn't reset to 0 with each loop iteration
+    var totalOfTotals = 0; // Counter for total of totals is outside outer loop so doesn't reset to 0 with each loop iteration
     for (var i = 0; i < openHours.length; i++) { // "Rows" loop
-
         var totalPerHour = 0; // Set counter for total cookies sold per hour across all stands
-
         for (var j = 0; j < allCookieStands.length; j++) { // "Columns" loop
             totalPerHour += allCookieStands[j].cookiesSoldEachHour[i];
         }
@@ -198,13 +186,13 @@ function renderAllCookieStands() {
 
 // helper function
 function renderTable() {
-    dailyTotalsTable.textContent = ''; 
-    makeHeaderRow();
+    dailyTotalsTable.textContent = '';
+    renderHeaderRow();
     renderAllCookieStands();
-    makeFooterRow();
+    renderFooterRow();
 }
 
-function invokeConstructor() {  // SHOULD MERGE THIS INTO SAME renderAllCookieStands FUNCTION AS IS USED TO tablify THE INSTANCES? THE LOGIC IN THAT FUNCTION AND THIS ONE ARE THE SAME...BUT DOES PROPER CONTROL FLOW REQUIRE THIS NOT BE DONE?
+function invokeConstructor() {
     for (var i = 0; i < allCookieStands.length; i++) {
         allCookieStands[i].calcCookiesSoldHourly();
     }
