@@ -5,12 +5,60 @@ var openHours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm',
 
 // GLOBAL VARIABLES FOR DOM ACCESS
 var salesForm = document.getElementById('sales-form');
-var salesList = document.getElementById('sales-list'); // Actually need this?
+var salesList = document.getElementById('sales-list'); // ACTUALLY NEED THIS?
 var clearSalesForm = document.getElementById('clear-sales-form');
 var dailyTotalsTable = document.getElementById('dailytotalstable');
 var allFormSubmissions = [];
 // Global array of all CookieStand objects
 var allCookieStands = [];
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// FORM SUBMISSION FUNCTION DECLARATIONS
+
+// Function that goes thru array of form inputs (?) and calls rendering method on each
+function renderAllInputs() {
+
+}
+
+// Event handler function for submission of new locations
+function handleFormSubmission(event) {
+    // console.log('log of the event object', event);
+    // console.log('log of the event.target', event.target);
+    // console.log('log of the event.target.name', event.target.name);
+    console.log(event.target.name.value);
+
+    event.preventDefault(); // Prevents page reload on a "submit" event
+    var locationName = event.target.name.value;
+    var minCustomers = parseInt(event.target.min.value);
+    var maxCustomers = parseInt(event.target.max.value);
+    var avgCookiesEachSale = parseInt(event.target.avg.value);
+    new CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale);
+    // Validation to prevent empty form fields
+    if (!event.target.name.value || !event.target.min.value) { // Old hacky way that HTML5 form validation obsoletizes
+        return alert('Fields cannot be empty!')
+    }
+
+    var newSubmission = new CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale); 
+    console.log('This is the CookieStand instance', newSubmission);
+
+    console.log('Pat added ' + event.target.name.value + ' at ' + Date());
+
+    // Empty form fields after data has been grabbed
+    event.target.name.value = null;
+    event.target.min.value = null;
+    event.target.max.value = null;
+    event.target.avg.value = null;
+
+    allFormSubmissions.unshift(newSubmission);
+    renderAllInputs();
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Event listener  for 
+salesForm
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// COOKIE STAND FUNCTION DECLARATIONS
 
 // Generate number btwn two values (learned from MDN doc on Math.random())
 function getRandomInt(min, max) {
