@@ -5,7 +5,6 @@ var openHours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm',
 
 // GLOBAL VARIABLES FOR DOM ACCESS
 var salesForm = document.getElementById('sales-form');
-var salesList = document.getElementById('sales-list'); // ACTUALLY NEED THIS?
 var clearSalesForm = document.getElementById('clear-sales-form');
 var dailyTotalsTable = document.getElementById('dailytotalstable');
 var allFormSubmissions = [];
@@ -15,10 +14,15 @@ var allCookieStands = [];
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // FORM SUBMISSION FUNCTION DECLARATIONS
 
+// DON'T NEED THIS RENDER FUNCTION; ALREADY GOT THIS BELOW WITH renderAllCookieStands FUNCTION
 // Function that goes thru array of form inputs (?) and calls rendering method on each
-function renderAllInputs() {
+// function renderAllInputs() {
+//     dailyTotalsTable// We want to add row to table here
 
-}
+//     for (var i = 0; i < allFormSubmissions.length; i++) {
+//         dailyTotalsTable.appendChild(allFormSubmissions[i].tablify());
+//     }
+// }
 
 // Event handler function for submission of new locations
 function handleFormSubmission(event) {
@@ -33,13 +37,20 @@ function handleFormSubmission(event) {
     var maxCustomers = parseInt(event.target.max.value);
     var avgCookiesEachSale = parseInt(event.target.avg.value);
     new CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale);
-    // Validation to prevent empty form fields
-    if (!event.target.name.value || !event.target.min.value) { // Old hacky way that HTML5 form validation obsoletizes
+    dailyTotalsTable.textContent = [];
+
+    /*
+    // Validation to prevent empty form fields; check out HTML5 form validation for better way
+    if (!event.target.name.value ||
+        !event.target.min.value ||
+        !event.target.max.value ||
+        !event.target.avg.value) {
         return alert('Fields cannot be empty!')
     }
+*/
 
     var newSubmission = new CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale); 
-    console.log('This is the CookieStand instance', newSubmission);
+    console.log('This is the CookieStand instance:', newSubmission);
 
     console.log('Pat added ' + event.target.name.value + ' at ' + Date());
 
@@ -54,8 +65,15 @@ function handleFormSubmission(event) {
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Event listener  for 
-salesForm
+// Event listener for submission of form
+salesForm.addEventListener('submit', handleFormSubmission);
+
+// Event listener for "Clear sales form" button
+clearSalesForm.addEventListener('click', function() {
+
+    console.log('You\'ve cleared the form!');
+    allFormSubmissions = [];
+});
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // COOKIE STAND FUNCTION DECLARATIONS
@@ -84,12 +102,12 @@ function CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSal
     allCookieStands.push(this);
 }
 
-CookieStand.prototype.render = function() {
+// Calc cookies sold each hour per each object
+CookieStand.prototype.calcCookiesSoldHourly = function() {
     for (var i = 0; i < openHours.length; i++) {
         var randCustNum = getRandomInt(this.minCustomers,this.maxCustomers);
         var cookiesEachHr = Math.ceil(cookiesSoldPerHr(randCustNum,this.avgCookiesEachSale));
         this.cookiesSoldEachHour.push(cookiesEachHr);
-        
         this.totalCookiesSold += this.cookiesSoldEachHour[i]; // Counter for summing total of cookies sold
     }
 };
@@ -127,7 +145,7 @@ function makeHeaderRow() {
     dailyTotalsTable.appendChild(trElmnt); 
 }
 
-// 2nd table function: make rows for table body content
+// 2nd table function: makes a single row for table body content
 CookieStand.prototype.tablify = function() {
     // Make element accessing this.locationName
     var trEl = document.createElement('tr');
@@ -179,16 +197,16 @@ function makeFooterRow() {
     dailyTotalsTable.appendChild(trElmnt); // Add to the DOM 
 }
 
-// Single function to render all individual locations
+// Single function to render a row in table for *each* *individual* locations
 function renderAllCookieStands() {
     for (var i = 0; i < allCookieStands.length; i++) {
         allCookieStands[i].tablify();
     }
 }
 
-function invokeConstructor() {
+function invokeConstructor() {  // SHOULD MERGE THIS INTO SAME renderAllCookieStands FUNCTION AS IS USED TO tablify THE INSTANCES? THE LOGIC IN THAT FUNCTION AND THIS ONE ARE THE SAME...BUT DOES PROPER CONTROL FLOW REQUIRE THIS NOT BE DONE?
     for (var i = 0; i < allCookieStands.length; i++) {
-        allCookieStands[i].render();
+        allCookieStands[i].calcCookiesSoldHourly();
     }
 }
 
@@ -202,6 +220,3 @@ function pageLoad() {
 
 // Call pageLoad function that calls "render" on all object instances and also calls all 3 table functions
 pageLoad();
-
-// Console log contents of array of object instances
-console.log(allCookieStands);
