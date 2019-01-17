@@ -3,8 +3,14 @@
 // Array of open hours that I can loop through; has global scope
 var openHours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
 
-// Access the table on the DOM; global variable
+// GLOBAL VARIABLES FOR DOM ACCESS
+var salesForm = document.getElementById('sales-form');
+var salesList = document.getElementById('sales-list'); // Actually need this?
+var clearSalesForm = document.getElementById('clear-sales-form');
 var dailyTotalsTable = document.getElementById('dailytotalstable');
+var allFormSubmissions = [];
+// Global array of all CookieStand objects
+var allCookieStands = [];
 
 // Generate number btwn two values (learned from MDN doc on Math.random())
 function getRandomInt(min, max) {
@@ -19,9 +25,7 @@ function cookiesSoldPerHr(custs, cookies) { // 1st param is rand no. of customer
     return cookiesPerHr;
 }
 
-// Global array of all CookieStand objects
-var allCookieStands = [];
-
+// Constructor function for CookieStand object
 function CookieStand(locationName, minCustomers, maxCustomers, avgCookiesEachSale) {
     this.locationName = locationName;
     this.minCustomers = minCustomers;
@@ -42,7 +46,7 @@ CookieStand.prototype.render = function() {
     }
 };
 
-// Create instances of CookieStand object // Could actually omit the "var <name> =" part; unnecessary as these obj instances are 
+// Create instances of CookieStand object // Could actually omit the "var <name> =" part
 var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3);
 var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2);
 var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7);
@@ -57,7 +61,7 @@ function makeHeaderRow() {
     // Create element for header row
     var trElmnt = document.createElement('tr');
     var thEl = document.createElement('th');
-    thEl.textContent = 'Stand Location'; // Or empty string for first header column
+    thEl.textContent = 'Stand Location';
     trElmnt.appendChild(thEl);
     
     // Add hours via for loop
@@ -106,8 +110,7 @@ function makeFooterRow() {
     tdEl.textContent = 'Totals';
     trElmnt.appendChild(tdEl);
 
-    // Set counter for total of totals
-    var totalOfTotals = 0; // outside outer loop so doesn't reset to 0 with each loop iteration
+    var totalOfTotals = 0; // Set counter for total of totals outside outer loop so doesn't reset to 0 with each loop iteration
     for (var i = 0; i < openHours.length; i++) { // "Rows" loop
 
         var totalPerHour = 0; // Set counter for total cookies sold per hour across all stands
