@@ -21,9 +21,31 @@ img {
     border-radius: 50% 50% 50% 50%;
 }
 
-/* 
+/*
+ELEMENTS USED
+body
+header
+nav
+img
+h1
+ul
+li
+a
+main
+section
+h2
+p
+button
+footer
+h3
+*/
 
+/*
 Play around with border radius
+
+text-align: 
+margin-left: auto // For non-block elements
+margin-right: auto
 
 How to style first column?
 How to style every other row?

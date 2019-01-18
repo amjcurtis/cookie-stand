@@ -15,10 +15,6 @@ var allCookieStands = [];
 
 // Event handler function for submission of new locations
 function handleFormSubmission(event) {
-    console.log('log of the event object', event);
-    console.log('log of the event.target', event.target);
-    console.log('log of the event.target.name', event.target.name);
-
     event.preventDefault(); // Prevents page reload on a "submit" event
     var locationName = event.target.name.value;
     var minCustomers = parseInt(event.target.min.value);
@@ -45,18 +41,6 @@ function handleFormSubmission(event) {
 
     renderTable();
 }
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Event listener for submission of form
-salesForm.addEventListener('submit', handleFormSubmission);
-
-// Event listener for "Clear sales form" button
-clearSalesForm.addEventListener('click', function() {
-    
-    // NEED TO IDENTIFY CONTENT TO CLEAR HERE
-
-    console.log('You\'ve cleared the form!');
-});
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // COOKIE STAND FUNCTION DECLARATIONS
