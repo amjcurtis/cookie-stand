@@ -43,18 +43,6 @@ function handleFormSubmission(event) {
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Event listener for submission of form
-salesForm.addEventListener('submit', handleFormSubmission);
-
-// Event listener for "Clear sales form" button
-clearSalesForm.addEventListener('click', function() {
-    
-    // NEED TO IDENTIFY CONTENT TO CLEAR HERE
-
-    console.log('You\'ve cleared the form!');
-});
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // COOKIE STAND FUNCTION DECLARATIONS
 
 // Generate number btwn two values (learned from MDN doc on Math.random())
