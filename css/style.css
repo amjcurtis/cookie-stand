@@ -38,9 +38,14 @@ p
 button
 footer
 h3
-/* 
+*/
 
+/*
 Play around with border radius
+
+text-align: 
+margin-left: auto // For non-block elements
+margin-right: auto
 
 How to style first column?
 How to style every other row?

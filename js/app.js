@@ -15,10 +15,6 @@ var allCookieStands = [];
 
 // Event handler function for submission of new locations
 function handleFormSubmission(event) {
-    console.log('log of the event object', event);
-    console.log('log of the event.target', event.target);
-    console.log('log of the event.target.name', event.target.name);
-
     event.preventDefault(); // Prevents page reload on a "submit" event
     var locationName = event.target.name.value;
     var minCustomers = parseInt(event.target.min.value);

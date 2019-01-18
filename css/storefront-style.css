@@ -1,0 +1,47 @@
+header{
+    background-color: blue;
+}
+nav {
+    background-color: bisque;
+}
+img {
+    border-radius: 100%;
+    border: 2px solid red; 
+}
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 40px;
+    /* text-align: right; */
+    border: 2px solid red; 
+}
+li {
+    border: 2px solid;
+    border-radius: 100%;
+    padding: 4px;
+    margin: 6px;
+    float: right;
+    width: 160px;
+    text-align: center;
+}
+main {
+    background-color: lightblue;
+}
+
+/*
+ELEMENTS USED
+body
+header
+nav
+img
+h1
+ul
+li
+a
+main
+section
+h2
+p
+button
+footer
+h3
+*/ 
