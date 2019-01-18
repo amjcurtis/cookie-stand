@@ -1,30 +1,98 @@
+body {
+    font-family: Helvetica, sans-serif;
+}
+
+/* ------------------------------------ */
+/* HEADER */
+
 header{
     background-color: blue;
+    height: 
 }
+
 nav {
     background-color: bisque;
+    width: 960px;
+    margin: 0px auto;
 }
-img {
+
+nav img {
     border-radius: 100%;
     border: 2px solid red; 
+    float: left;
+    margin-top: 15px;
+    margin-right: 30px;
 }
+
 h1 {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    border: 2px solid red; 
     font-size: 40px;
     /* text-align: right; */
-    border: 2px solid red; 
+
 }
-li {
+
+nav li {
+    display: inline-block;
+    margin: 40px;
+    margin-right: 90px;
+    list-style: none;
+
     border: 2px solid;
     border-radius: 100%;
-    padding: 4px;
-    margin: 6px;
-    float: right;
-    width: 160px;
-    text-align: center;
+    /* padding: 4px; */
+    /* margin: 6px; */
+    /* float: right; */
+    /* width: 160px; */
+    /* text-align: center; */
+    /* transition: 500ms; */
 }
+
+a {
+    color: #888;
+    text-decoration: none;
+}
+
+/* ----------------------------------- */
+/* MAIN */
+
 main {
+    width: 960px;
+    margin: 30px; /* vs. 0px auto */
+    
     background-color: lightblue;
+}
+
+main ul li {
+    display: inline-block; /* Or float left and address margins afterward; this is older way of allowing you to squeeze the li's from side-by-side to stacked top-to-bottom based on window width*/
+    margin: 30px 30px 30px 0px;
+    list-style: none;
+}
+
+main li:last-child { /* ':last-child' is a pseudo-class */
+    margin-right: 0px; /* 0px here corresponds to the 0px left margin in main li ul selector above */
+    
+}
+
+section img {
+    float: left;
+    margin-right: 30px;
+}
+
+section div {
+    width: calc(50% - 30px);
+}
+
+section h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+section p {
+    font-style: italic; /* vs. using <em> element in the HTML */
+    line-height: 20px; /* Always specify line height */
+    height: 300px; /* Constraint p text to within height of container */
+    overflow: auto; /* Or 'scroll' value */
+
 }
 
 /*
