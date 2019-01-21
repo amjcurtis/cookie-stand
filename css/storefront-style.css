@@ -1,5 +1,5 @@
 body {
-    font-family: Helvetica, sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 /* ------------------------------------ */
@@ -36,7 +36,7 @@ nav li {
     margin: 40px;
     margin-right: 90px;
     list-style: none;
-
+    font-family: 'Yellowtail', cursive;
     border: 2px solid;
     border-radius: 100%;
     /* padding: 4px; */
@@ -84,6 +84,7 @@ section div {
 
 section h2 {
     font-size: 20px;
+    font-family: 'Yellowtail', cursive;
     margin-bottom: 5px;
 }
 
@@ -93,6 +94,11 @@ section p {
     height: 300px; /* Constraint p text to within height of container */
     overflow: auto; /* Or 'scroll' value */
 
+}
+
+section div ul li {
+    font-family: Arial, Helvetica, sans-serif;
+    display: block;
 }
 
 /*
