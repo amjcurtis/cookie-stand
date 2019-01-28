@@ -68,7 +68,7 @@ form input {
     background-color: #f2f2f2;
 }
 
-form input:focus, input:hover { */
+form input:focus, input:hover {
     background-color: #ffffff;
     border: 2px solid #b1e1e4;
 }
