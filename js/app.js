@@ -188,5 +188,9 @@ function pageLoad() {
   renderTable();
 }
 
+// Event listener for submission of form
+salesForm.addEventListener('submit', handleFormSubmission);
+
+
 // Call pageLoad function that calls "render" on all object instances and also calls all 3 table functions
 pageLoad();
