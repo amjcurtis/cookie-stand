@@ -79,13 +79,6 @@ CookieStand.prototype.calcCookiesSoldHourly = function () {
   }
 };
 
-// Create instances of CookieStand object // Could actually omit the "var <name> =" part
-var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3);
-var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2);
-var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7);
-var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3);
-var alkiStand = new CookieStand('Alki', 2, 16, 4.6);
-
 // 1st table function: make header row
 function renderHeaderRow() {
   // Create element for header row
@@ -153,7 +146,7 @@ function renderFooterRow() {
     tdEl.textContent = totalPerHour;
     trElmnt.appendChild(tdEl);
   }
-  var tdEl = document.createElement('td');
+  tdEl = document.createElement('td');
 
   // Add up total of daily totals across all cookie stands
   tdEl.textContent = totalOfTotals;
@@ -187,6 +180,14 @@ function pageLoad() {
   invokeConstructor();
   renderTable();
 }
+
+
+// Create instances of CookieStand object // Could actually omit the "var <name> =" part
+var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3);
+var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2);
+var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7);
+var capitolHillStand = new CookieStand('Capitol Hill', 20, 38, 2.3);
+var alkiStand = new CookieStand('Alki', 2, 16, 4.6);
 
 // Event listener for submission of form
 salesForm.addEventListener('submit', handleFormSubmission);
