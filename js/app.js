@@ -3,14 +3,16 @@
 // Array of open hours that I can loop through; has global scope
 var openHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
 
-// GLOBAL VARIABLES FOR DOM ACCESS
+// +++++++++++++++++++++++++++++++++++++++++++++
+// GLOBAL VARIABLES
+
+// Variables for DOM access
 var salesForm = document.getElementById('sales-form');
-var clearSalesForm = document.getElementById('clear-sales-form');
 var dailyTotalsTable = document.getElementById('dailytotalstable');
 // Global array of all CookieStand objects
 var allCookieStands = [];
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++++++++++++++++++++
 // FORM SUBMISSION FUNCTION DECLARATIONS
 
 // Event handler function for submission of new locations
@@ -42,7 +44,7 @@ function handleFormSubmission(event) {
   renderTable();
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++++++++++++++++++++
 // COOKIE STAND FUNCTION DECLARATIONS
 
 // Generate number btwn two values (learned from MDN doc on Math.random())
@@ -151,17 +153,18 @@ function renderFooterRow() {
   // Add up total of daily totals across all cookie stands
   tdEl.textContent = totalOfTotals;
   trElmnt.appendChild(tdEl);
-  dailyTotalsTable.appendChild(trElmnt); // Add to the DOM 
+  dailyTotalsTable.appendChild(trElmnt);
 }
 
-// Single function to render a row in table for *each* *individual* locations
+// Single function to render a row in table for *each individual* location
 function renderAllCookieStands() {
   for (var i = 0; i < allCookieStands.length; i++) {
     allCookieStands[i].tablify();
   }
 }
 
-// helper function
+// +++++++++++++++++++++++++++++++++++++++++++++
+// Helper functions
 function renderTable() {
   dailyTotalsTable.textContent = '';
   renderHeaderRow();
@@ -181,8 +184,7 @@ function pageLoad() {
   renderTable();
 }
 
-
-// Create instances of CookieStand object // Could actually omit the "var <name> =" part
+// Create instances of CookieStand object
 var firstAndPikeStand = new CookieStand('1st and Pike', 23, 65, 6.3);
 var seaTacAirportStand = new CookieStand('SeaTac Airport', 3, 24, 1.2);
 var seattleCenterStand = new CookieStand('Seattle Center', 11, 38, 3.7);
@@ -191,7 +193,6 @@ var alkiStand = new CookieStand('Alki', 2, 16, 4.6);
 
 // Event listener for submission of form
 salesForm.addEventListener('submit', handleFormSubmission);
-
 
 // Call pageLoad function that calls "render" on all object instances and also calls all 3 table functions
 pageLoad();
